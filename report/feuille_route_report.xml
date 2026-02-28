@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- TEMPLATE PDF : Feuille de route                          -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Rapport QWeb simple et stable                           -->
+    <!-- - Aucun JS, aucune logique dynamique                      -->
+    <!-- - Compatible Odoo 16 CE                                   -->
+    <!-- ========================================================= -->
+    <template id="report_feuille_route">
+        <t t-call="web.external_layout">
+            <div class="page">
+
+                <!-- Titre -->
+                <h2 style="text-align:center; margin-bottom:20px;">
+                    Feuille de route – <t t-esc="doc.name"/>
+                </h2>
+
+                <!-- Informations générales -->
+                <p><strong>Jour :</strong> <t t-esc="doc.jour_semaine"/></p>
+                <p><strong>Point de départ :</strong> <t t-esc="doc.point_depart_id.name"/></p>
+
+                <!-- Lien Google Maps -->
+                <p>
+                    <strong>Itinéraire Google Maps :</strong>
+                    <a t-att-href="doc.get_google_maps_url()" target="_blank">
+                        Ouvrir dans Google Maps
+                    </a>
+                </p>
+
+                <br/>
+
+                <!-- Tableau des bâtiments -->
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                            <th>Ordre</th>
+                            <th>Bâtiment</th>
+                            <th>Adresse</th>
+                            <th>Distance (m)</th>
+                            <th>Temps (min)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="doc.ligne_ids.sorted(key=lambda l: l.ordre)" t-as="ligne">
+                            <tr>
+                                <td><t t-esc="ligne.ordre"/></td>
+                                <td><t t-esc="ligne.batiment_id.name"/></td>
+                                <td><t t-esc="ligne.adresse"/></td>
+                                <td><t t-esc="ligne.distance or ''"/></td>
+                                <td><t t-esc="ligne.temps_estime or ''"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+            </div>
+        </t>
+    </template>
+
+    <!-- ========================================================= -->
+    <!-- ACTION DU RAPPORT                                         -->
+    <!-- Objectif IT :                                              -->
+    <!-- - Déclaration standard ir.actions.report                   -->
+    <!-- - Nom de fichier dynamique                                 -->
+    <!-- ========================================================= -->
+    <record id="report_feuille_route_action" model="ir.actions.report">
+        <field name="name">Feuille de route</field>
+        <field name="model">epi.tournee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">epi_stock.report_feuille_route</field>
+        <field name="report_file">epi_stock.report_feuille_route</field>
+        <field name="print_report_name">'Feuille_route_%s' % (object.name)</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- LISTE : Lignes d’inventaire                              -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue simple et stable                                     -->
+    <!-- - Décoration rouge si ligne validée                        -->
+    <!-- ========================================================= -->
+    <record id="view_inventory_line_tree" model="ir.ui.view">
+        <field name="name">epi.inventory.line.tree</field>
+        <field name="model">epi.inventory.line</field>
+        <field name="arch" type="xml">
+
+            <tree string="Lignes d'inventaire"
+                  decoration-danger="status_display == 'Validé'">
+
+                <field name="article_id"/>
+                <field name="stock_theorique"/>
+                <field name="stock_reel"/>
+                <field name="ecart"/>
+                <field name="status_display" readonly="1"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- FORMULAIRE : Ligne d’inventaire                           -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Bouton PDF (object)                                     -->
+    <!-- - Champs cohérents en readonly                            -->
+    <!-- ========================================================= -->
+    <record id="view_inventory_line_form" model="ir.ui.view">
+        <field name="name">epi.inventory.line.form</field>
+        <field name="model">epi.inventory.line</field>
+        <field name="arch" type="xml">
+
+            <form string="Ligne d’inventaire">
+
+                <header>
+                    <button name="print_inventory_line"
+                            string="Imprimer"
+                            type="object"
+                            class="btn-secondary"/>
+                </header>
+
+                <sheet>
+                    <group string="Informations">
+
+                        <field name="inventory_id" readonly="1"/>
+                        <field name="article_id" readonly="1"/>
+
+                        <field name="stock_theorique" readonly="1"/>
+                        <field name="stock_reel"/>
+                        <field name="ecart" readonly="1"/>
+
+                        <field name="remarque"/>
+                        <field name="status_display" readonly="1"/>
+
+                    </group>
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+</odoo>

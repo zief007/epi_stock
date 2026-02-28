@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- SEARCH : Mouvements                                       -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Filtres simples                                         -->
+    <!-- - Domaines propres (sans Python)                          -->
+    <!-- ========================================================= -->
+    <record id="epi_mouvement_filters" model="ir.ui.view">
+        <field name="name">epi.mouvement.filters</field>
+        <field name="model">epi.mouvement</field>
+        <field name="arch" type="xml">
+
+            <search string="Recherche mouvements">
+
+                <field name="agent_id"/>
+                <field name="type_mouvement"/>
+
+                <filter name="sorties"
+                        string="Sorties"
+                        domain="[('type_mouvement','=','sortie')]"/>
+
+                <filter name="retours"
+                        string="Retours"
+                        domain="[('type_mouvement','=','retour')]"/>
+
+                <separator/>
+
+                <!-- Filtres mensuels (domaines sûrs) -->
+                <filter name="sorties_mois"
+                        string="Sorties du mois"
+                        domain="[('type_mouvement','=','sortie'),
+                                 ('date_mouvement','>=', context_today().strftime('%Y-%m-01'))]"/>
+
+                <filter name="retours_mois"
+                        string="Retours du mois"
+                        domain="[('type_mouvement','=','retour'),
+                                 ('date_mouvement','>=', context_today().strftime('%Y-%m-01'))]"/>
+
+            </search>
+
+        </field>
+    </record>
+
+</odoo>

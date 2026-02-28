@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ========================================================= -->
+    <!--  GROUPES DE SÉCURITÉ DU MODULE EPI                        -->
+    <!-- ========================================================= -->
+    <!--
+        Ce fichier définit les trois groupes fonctionnels utilisés
+        dans le module V.E.T.E.S – Gestion des EPI.
+
+        Rôles :
+        - Administrateur EPI : IT, accès complet au module EPI
+        - Responsable EPI   : chef d'équipe, contrôle fonctionnel complet
+        - Magasinier EPI    : rôle opérationnel terrain
+
+        Notes importantes :
+        - Les administrateurs IT disposent déjà du groupe Odoo
+          "Administration / Paramètres" (base.group_system), leur donnant
+          accès complet à Odoo. Le groupe Administrateur EPI sert donc
+          principalement à gérer les droits internes au module.
+        - Ces groupes sont utilisés dans :
+            * les ACL (ir.model.access.csv)
+            * les menus
+            * les vues (chatter, actions, boutons)
+    -->
+
+    <data noupdate="1">
+
+        <!-- ===================================================== -->
+        <!-- Groupe : Administrateur EPI (IT)                      -->
+        <!-- ===================================================== -->
+        <record id="group_epi_admin" model="res.groups">
+            <field name="name">Administrateur EPI</field>
+            <field name="category_id" ref="base.module_category_inventory"/>
+        </record>
+
+        <!-- ===================================================== -->
+        <!-- Groupe : Responsable EPI                              -->
+        <!-- ===================================================== -->
+        <record id="group_epi_responsable" model="res.groups">
+            <field name="name">Responsable EPI</field>
+            <field name="category_id" ref="base.module_category_inventory"/>
+        </record>
+
+        <!-- ===================================================== -->
+        <!-- Groupe : Magasinier EPI                               -->
+        <!-- ===================================================== -->
+        <record id="group_epi_magasinier" model="res.groups">
+            <field name="name">Magasinier EPI</field>
+            <field name="category_id" ref="base.module_category_inventory"/>
+        </record>
+
+    </data>
+</odoo>

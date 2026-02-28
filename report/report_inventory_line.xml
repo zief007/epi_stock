@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- TEMPLATE PDF : Ligne d’inventaire                        -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Rapport QWeb simple et stable                           -->
+    <!-- - Utilise web.external_layout (charte Odoo)               -->
+    <!-- - Aucun script, aucune logique dynamique                  -->
+    <!-- ========================================================= -->
+    <template id="report_inventory_line_document">
+        <t t-call="web.external_layout">
+
+            <div class="page">
+
+                <!-- Titre -->
+                <h2>Rapport – Ligne d’inventaire</h2>
+
+                <!-- Informations inventaire -->
+                <p><strong>Inventaire :</strong> <t t-esc="doc.inventory_id.name"/></p>
+                <p><strong>Date :</strong> <t t-esc="doc.inventory_id.date_inventory"/></p>
+                <p><strong>Catégorie :</strong> <t t-esc="doc.inventory_id.category_id.name"/></p>
+
+                <hr/>
+
+                <!-- Article -->
+                <h3>Article</h3>
+                <p><strong>Nom :</strong> <t t-esc="doc.article_id.name"/></p>
+
+                <!-- Quantités -->
+                <h3>Quantités</h3>
+                <p><strong>Stock théorique :</strong> <t t-esc="doc.stock_theorique"/></p>
+                <p><strong>Stock réel :</strong> <t t-esc="doc.stock_reel"/></p>
+                <p><strong>Écart :</strong> <t t-esc="doc.ecart"/></p>
+
+                <!-- Remarque -->
+                <t t-if="doc.remarque">
+                    <h3>Remarque</h3>
+                    <p><t t-esc="doc.remarque"/></p>
+                </t>
+
+            </div>
+
+        </t>
+    </template>
+
+</odoo>

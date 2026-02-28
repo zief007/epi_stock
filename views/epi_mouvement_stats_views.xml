@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- SEARCH : Statistiques mouvements                          -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Recherche simple                                         -->
+    <!-- - Filtres sorties/retours                                 -->
+    <!-- - Group_by standards                                      -->
+    <!-- ========================================================= -->
+    <record id="view_epi_mouvement_ligne_search_stats" model="ir.ui.view">
+        <field name="name">epi.mouvement.ligne.search.stats</field>
+        <field name="model">epi.mouvement.ligne</field>
+        <field name="arch" type="xml">
+
+            <search string="Recherche mouvements">
+
+                <field name="article_id"/>
+                <field name="agent_id"/>
+                <field name="type_mouvement"/>
+                <field name="date_mouvement"/>
+
+                <filter name="sorties"
+                        string="Sorties"
+                        domain="[('type_mouvement','=','sortie')]"/>
+
+                <filter name="retours"
+                        string="Retours"
+                        domain="[('type_mouvement','=','retour')]"/>
+
+                <group expand="0" string="Regrouper par">
+                    <filter name="group_agent"
+                            string="Agent"
+                            context="{'group_by':'agent_id'}"/>
+
+                    <filter name="group_article"
+                            string="Article"
+                            context="{'group_by':'article_id'}"/>
+
+                    <filter name="group_type"
+                            string="Type"
+                            context="{'group_by':'type_mouvement'}"/>
+                </group>
+
+            </search>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- LISTE : Statistiques mouvements                           -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue simple, stable                                      -->
+    <!-- - Colonnes essentielles                                   -->
+    <!-- ========================================================= -->
+    <record id="view_epi_mouvement_ligne_tree_stats" model="ir.ui.view">
+        <field name="name">epi.mouvement.ligne.tree.stats</field>
+        <field name="model">epi.mouvement.ligne</field>
+        <field name="arch" type="xml">
+
+            <tree string="Statistiques mouvements">
+                <field name="article_id"/>
+                <field name="agent_id"/>
+                <field name="type_mouvement"/>
+                <field name="quantite"/>
+                <field name="date_mouvement"/>
+                <field name="remarque"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- ACTION : Statistiques mouvements                           -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Action tree seule                                        -->
+    <!-- - Search view dédiée                                       -->
+    <!-- ========================================================= -->
+    <record id="action_epi_mouvement_stats" model="ir.actions.act_window">
+        <field name="name">Statistiques mouvements</field>
+        <field name="res_model">epi.mouvement.ligne</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="view_epi_mouvement_ligne_search_stats"/>
+    </record>
+
+</odoo>

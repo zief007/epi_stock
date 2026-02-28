@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Enregistrement principal de la page d'accueil V.E.T.E.S   -->
+    <!-- ========================================================= -->
+    <!--
+        NOTE IT :
+        - Enregistrement unique du modèle vetes.homepage.
+        - Sert de point d'entrée pour l'action d'ouverture.
+    -->
+    <record id="vetes_homepage_record" model="vetes.homepage">
+        <field name="name">Accueil V.E.T.E.S</field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Action d'ouverture de la page d'accueil                   -->
+    <!-- ========================================================= -->
+    <!--
+        NOTE IT :
+        - Action act_window standard.
+        - Ouvre la vue formulaire vetes_homepage_view.
+        - Utilisée par la redirection d'accueil.
+    -->
+    <record id="action_vetes_homepage" model="ir.actions.act_window">
+        <field name="name">Accueil</field>
+        <field name="res_model">vetes.homepage</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="vetes_homepage_view"/>
+        <field name="target">current</field>
+    </record>
+
+</odoo>

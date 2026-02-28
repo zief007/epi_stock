@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- LISTE : Tournées                                          -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue simple, stable                                      -->
+    <!-- ========================================================= -->
+    <record id="view_epi_tournee_tree" model="ir.ui.view">
+        <field name="name">epi.tournee.tree</field>
+        <field name="model">epi.tournee</field>
+        <field name="arch" type="xml">
+            <tree string="Tournées">
+                <!-- Correction demandée : Name → Nom -->
+                <field name="name" string="Nom"/>
+                <field name="jour_semaine"/>
+                <field name="point_depart_id"/>
+                <field name="point_arrivee_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- FORMULAIRE : Tournée                                      -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Boutons métier (itinéraire / GPS / Excel)               -->
+    <!-- - Lignes de bâtiments éditables                           -->
+    <!-- ========================================================= -->
+    <record id="view_epi_tournee_form" model="ir.ui.view">
+        <field name="name">epi.tournee.form</field>
+        <field name="model">epi.tournee</field>
+        <field name="arch" type="xml">
+
+            <form string="Tournée">
+
+                <header>
+                    <button name="action_optimize_itinerary"
+                            string="Optimiser l’itinéraire"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button name="action_open_google_maps"
+                            string="Google Maps"
+                            type="object"
+                            class="btn-success"/>
+
+                    <button name="action_refresh_gps"
+                            string="Rafraîchir GPS"
+                            type="object"
+                            class="btn-secondary"/>
+
+                    <button name="action_export_excel"
+                            string="Exporter Excel"
+                            type="object"
+                            class="btn-info"/>
+                </header>
+
+                <sheet>
+
+                    <group string="Informations de la tournée">
+                        <!-- Correction demandée : Name → Nom -->
+                        <field name="name" string="Nom"/>
+                        <field name="jour_semaine"/>
+                        <field name="point_depart_id"/>
+                        <field name="point_arrivee_id"/>
+                    </group>
+
+                    <notebook>
+
+                        <!-- Bâtiments de la tournée -->
+                        <page string="Bâtiments">
+                            <field name="ligne_ids">
+                                <tree editable="bottom">
+                                    <field name="ordre"/>
+                                    <field name="batiment_id"/>
+                                    <field name="adresse" readonly="1"/>
+                                    <field name="latitude"/>
+                                    <field name="longitude"/>
+                                    <field name="distance"/>
+                                    <field name="temps_estime"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- ACTION : Tournées                                         -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Action standard tree/form                               -->
+    <!-- ========================================================= -->
+    <record id="action_epi_tournee" model="ir.actions.act_window">
+        <field name="name">Tournées</field>
+        <field name="res_model">epi.tournee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

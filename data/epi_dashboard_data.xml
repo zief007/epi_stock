@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Enregistrement du tableau de bord EPI                     -->
+    <!-- ========================================================= -->
+    <!--
+        Ce fichier crée l'enregistrement principal du modèle
+        epi.dashboard. Utilisé comme point d'entrée pour les vues
+        et actions liées au tableau de bord.
+        Aucun traitement logique : simple initialisation de données.
+    -->
+
+    <record id="epi_dashboard_record" model="epi.dashboard">
+        <field name="name">Tableau de bord EPI</field>
+    </record>
+
+</odoo>

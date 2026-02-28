@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Action serveur : Mise à jour des badges dynamiques        -->
+    <!-- ========================================================= -->
+    <!--
+        NOTE IT :
+        - Action serveur exécutée par un cron (voir vetes_badges_cron.xml).
+        - Appelle la méthode run() du service epi.badge.service.
+        - La logique métier est entièrement encapsulée dans le service.
+        - Ne pas modifier dans l'interface Odoo : ce fichier est la source.
+    -->
+
+    <record id="action_vetes_update_badges" model="ir.actions.server">
+        <field name="name">VETES – Mise à jour des badges</field>
+
+        <!-- Modèle exécuté : service interne dédié -->
+        <field name="model_id" ref="model_epi_badge_service"/>
+
+        <field name="state">code</field>
+
+        <!-- Exécution directe de la méthode run() -->
+        <field name="code">model.run()</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- SEARCH : Commandes                                        -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Filtres simples                                         -->
+    <!-- - Libellés FR propres                                     -->
+    <!-- ========================================================= -->
+    <record id="view_epi_commande_search" model="ir.ui.view">
+        <field name="name">epi.commande.search</field>
+        <field name="model">epi.commande</field>
+        <field name="arch" type="xml">
+
+            <search string="Recherche Commandes">
+                <field name="name" string="Numéro bordereau"/>
+                <field name="fournisseur" string="Fournisseur"/>
+
+                <filter name="active" string="Actives"
+                        domain="[('active','=',True)]"/>
+
+                <filter name="archived" string="Archivées"
+                        domain="[('active','=',False)]"/>
+            </search>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- ACTION PRINCIPALE                                         -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Action standard tree/form                               -->
+    <!-- - Cohérente avec menus                                    -->
+    <!-- ========================================================= -->
+    <record id="action_epi_commandes" model="ir.actions.act_window">
+        <field name="name">Commandes EPI</field>
+        <field name="res_model">epi.commande</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_epi_commande_search"/>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- LISTE : Commandes                                         -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Commandes "Commandée" en rouge                          -->
+    <!-- - Toujours en haut (géré par _order dans le modèle)       -->
+    <!-- - Vue simple et stable                                    -->
+    <!-- ========================================================= -->
+    <record id="view_epi_commande_tree" model="ir.ui.view">
+        <field name="name">epi.commande.tree</field>
+        <field name="model">epi.commande</field>
+        <field name="arch" type="xml">
+
+            <tree string="Commandes"
+                  decoration-danger="state == 'ordered'">
+
+                <field name="name" string="Numéro bordereau"/>
+                <field name="fournisseur" string="Fournisseur"/>
+                <field name="date_commande" string="Date commande"/>
+                <field name="date_reception" string="Date réception"/>
+                <field name="state" string="État"/>
+                <field name="has_backorder" string="Reliquat"/>
+                <field name="active" invisible="1"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- FORMULAIRE : Commande EPI                                 -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Boutons métier (confirm / réception)                    -->
+    <!-- - Suppression du bouton rouge obsolète                    -->
+    <!-- - Lignes en mode brouillon puis confirmé                  -->
+    <!-- - Champs readonly cohérents                               -->
+    <!-- ========================================================= -->
+    <record id="view_epi_commande_form" model="ir.ui.view">
+        <field name="name">epi.commande.form</field>
+        <field name="model">epi.commande</field>
+        <field name="arch" type="xml">
+
+            <form string="Commande EPI">
+
+                <header>
+
+                    <!-- Bouton : CONFIRMER (uniquement en brouillon) -->
+                    <button name="action_confirmer"
+                            string="Confirmer"
+                            type="object"
+                            class="btn-secondary"
+                            attrs="{'invisible': [('state','!=','draft')]}"/>
+
+                    <!-- Bouton : RÉCEPTIONNER (action principale) -->
+                    <button name="action_receptionner"
+                            string="Réceptionner"
+                            type="object"
+                            class="btn-primary"
+                            attrs="{'invisible': [('state','=','received')]}"/>
+
+                    <!-- Bouton rouge supprimé (obsolète) -->
+
+                    <!-- Bouton : ARCHIVER / DÉSARCHIVER -->
+                    <button name="toggle_active"
+                            type="object"
+                            string="Archiver"
+                            class="btn-secondary"
+                            attrs="{'invisible': [('active','=',False)]}"/>
+
+                    <button name="toggle_active"
+                            type="object"
+                            string="Désarchiver"
+                            class="btn-secondary"
+                            attrs="{'invisible': [('active','=',True)]}"/>
+
+                    <!-- Barre d'état -->
+                    <field name="state" widget="statusbar" string="État"/>
+
+                </header>
+
+                <sheet>
+
+                    <field name="active" invisible="1"/>
+
+                    <!-- Informations générales -->
+                    <group string="Informations">
+                        <field name="name" string="Numéro bordereau"/>
+                        <field name="fournisseur" string="Fournisseur"/>
+                        <field name="date_commande" string="Date commande"/>
+                        <field name="date_reception" string="Date réception" readonly="1"/>
+                        <field name="has_backorder" string="Reliquat" readonly="1"/>
+                    </group>
+
+                    <group string="Remarque">
+                        <field name="remarque"/>
+                    </group>
+
+                    <!-- Lignes de commande -->
+                    <group string="Lignes de commande">
+
+                        <!-- Mode brouillon -->
+                        <field name="line_ids_simple"
+                               attrs="{'invisible': [('state','!=','draft')]}"
+                               context="{'active_test': False}">
+                            <tree editable="bottom">
+                                <field name="article_id" string="Article"/>
+                                <field name="qty_commande" widget="integer" string="Quantité commandée"/>
+                            </tree>
+                        </field>
+
+                        <!-- Mode confirmé -->
+                        <field name="line_ids"
+                               attrs="{'invisible': [('state','=','draft')]}"
+                               context="{'active_test': False}">
+                            <tree editable="bottom">
+                                <field name="parent_line_id" invisible="1"/>
+                                <field name="article_id" string="Article"/>
+                                <field name="qty_commande" widget="integer" string="Qté commandée"/>
+                                <field name="qty_entree" widget="integer" readonly="1" string="Qté entrée"/>
+                                <field name="qty_recue" widget="integer" string="Qté reçue"/>
+                                <field name="backorder_qty" widget="integer" readonly="1" string="Reliquat"/>
+                                <field name="date_reception_partielle" readonly="1" string="Réception partielle"/>
+                                <field name="is_done" readonly="1" string="Terminé"/>
+                            </tree>
+                        </field>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Initialisation des années (2015 → 2035)                   -->
+    <!-- ========================================================= -->
+    <!--
+        Ce fichier charge :
+        - un enregistrement technique utilisé pour déclencher
+          la génération des années si elles sont absentes.
+        - un appel de méthode modèle (create_years_if_missing)
+          exécuté au chargement du module.
+        Aucun impact fonctionnel direct pour l'utilisateur.
+    -->
+
+    <record id="create_years" model="epi.annee.selection">
+        <field name="name">Initialisation des années</field>
+        <field name="value">0</field>
+    </record>
+
+    <!-- Appel de la méthode Python pour créer les années manquantes -->
+    <function model="epi.annee.selection" name="create_years_if_missing"/>
+
+</odoo>

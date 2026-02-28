@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- CRON : Mise à jour des badges dynamiques                  -->
+    <!-- ========================================================= -->
+    <!--
+        NOTE IT :
+        - Ce cron exécute l'action serveur action_vetes_update_badges.
+        - L'action serveur appelle le service epi.badge.service (méthode run()).
+        - Architecture stable et maintenable.
+        - Le cron ne se réinitialise pas lors des mises à jour du module.
+    -->
+
+    <record id="cron_vetes_update_menu_badges" model="ir.cron">
+        <field name="name">VETES – Mise à jour des badges</field>
+
+        <!-- Le cron exécute une action serveur -->
+        <field name="model_id" ref="base.model_ir_actions_server"/>
+        <field name="state">code</field>
+
+        <!-- Appel propre de l'action serveur -->
+        <field name="code">
+action = env.ref('epi_stock.action_vetes_update_badges')
+action.run()
+        </field>
+
+        <!-- Fréquence d’exécution -->
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+
+        <!-- Exécutions illimitées -->
+        <field name="numbercall">-1</field>
+
+        <!-- Cron actif -->
+        <field name="active">True</field>
+    </record>
+
+</odoo>

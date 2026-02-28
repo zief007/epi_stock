@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- DOSSIERS DE DOCUMENTS                                     -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vues simples et stables                                 -->
+    <!-- ========================================================= -->
+
+    <!-- Liste des dossiers -->
+    <record id="view_document_folder_tree" model="ir.ui.view">
+        <field name="name">epi.document.folder.tree</field>
+        <field name="model">epi.document.folder</field>
+        <field name="arch" type="xml">
+            <tree string="Dossiers de documents">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Formulaire dossier -->
+    <record id="view_document_folder_form" model="ir.ui.view">
+        <field name="name">epi.document.folder.form</field>
+        <field name="model">epi.document.folder</field>
+        <field name="arch" type="xml">
+            <form string="Dossier de documents">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Documents">
+                            <field name="document_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="type"/>
+                                    <field name="url"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- DOCUMENTS                                                  -->
+    <!-- Objectif IT :                                             -->
+    <!-- - create="true" active le chatter immédiatement           -->
+    <!-- - Vue stable, sans logique métier                         -->
+    <!-- ========================================================= -->
+
+    <!-- Liste des documents -->
+    <record id="view_document_tree" model="ir.ui.view">
+        <field name="name">epi.document.tree</field>
+        <field name="model">epi.document</field>
+        <field name="arch" type="xml">
+            <tree string="Documents">
+                <field name="name"/>
+                <field name="folder_id"/>
+                <field name="type"/>
+                <field name="url"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Formulaire document -->
+    <record id="view_document_form" model="ir.ui.view">
+        <field name="name">epi.document.form</field>
+        <field name="model">epi.document</field>
+        <field name="arch" type="xml">
+
+            <form string="Document" create="true" edit="true">
+                <sheet>
+
+                    <!-- Informations principales -->
+                    <group>
+                        <field name="name"/>
+                        <field name="folder_id"/>
+                        <field name="description"/>
+                    </group>
+
+                    <!-- Lien externe -->
+                    <group string="Lien externe">
+                        <field name="url"/>
+                        <field name="type" readonly="1"/>
+                    </group>
+
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- ACTIONS                                                    -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Déclarations standard act_window                        -->
+    <!-- - Séquences tree/form explicites                          -->
+    <!-- ========================================================= -->
+
+    <!-- Dossiers -->
+    <record id="action_document_folders" model="ir.actions.act_window">
+        <field name="name">Dossiers</field>
+        <field name="res_model">epi.document.folder</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_document_folders_view_tree" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_document_folders"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_document_folder_tree"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="action_document_folders_view_form" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_document_folders"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_document_folder_form"/>
+        <field name="sequence">2</field>
+    </record>
+
+    <!-- Documents -->
+    <record id="action_documents" model="ir.actions.act_window">
+        <field name="name">Documents</field>
+        <field name="res_model">epi.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_documents_view_tree" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_documents"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_document_tree"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="action_documents_view_form" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_documents"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_document_form"/>
+        <field name="sequence">2</field>
+    </record>
+
+</odoo>

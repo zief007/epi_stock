@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- ACTION PDF : Ligne d’inventaire                          -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Déclaration standard ir.actions.report                   -->
+    <!-- - Liaison avec le template QWeb                           -->
+    <!-- - Nom de fichier dynamique                                -->
+    <!-- ========================================================= -->
+    <report
+        id="report_inventory_line"
+        model="epi.inventory.line"
+        string="Ligne d’inventaire"
+        report_type="qweb-pdf"
+        name="epi_stock.report_inventory_line_document"
+        file="epi_stock.report_inventory_line_document"
+        print_report_name="'Inventaire - %s' % (object.article_id.name)"
+    />
+
+</odoo>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- ACTIONS PRINCIPALES DU MODULE V.E.T.E.S                  -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Déclarer les act_window du module                       -->
+    <!-- - Aucune logique métier ici                               -->
+    <!-- - Cohérence avec les menus et modèles actifs              -->
+    <!-- ========================================================= -->
+
+    <!-- Accueil (vue statique) -->
+    <record id="action_vetes_homepage" model="ir.actions.act_window">
+        <field name="name">Accueil</field>
+        <field name="res_model">vetes.homepage</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="vetes_homepage_view"/>
+        <field name="target">current</field>
+    </record>
+
+    <!-- Agents -->
+    <record id="action_epi_agent" model="ir.actions.act_window">
+        <field name="name">Agents</field>
+        <field name="res_model">epi.agent</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Articles -->
+    <record id="action_epi_articles" model="ir.actions.act_window">
+        <field name="name">Articles</field>
+        <field name="res_model">epi.article</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Catégories -->
+    <record id="action_epi_article_categories" model="ir.actions.act_window">
+        <field name="name">Catégories</field>
+        <field name="res_model">epi.article.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Péremption -->
+    <record id="action_epi_article_peremption" model="ir.actions.act_window">
+        <field name="name">Péremption</field>
+        <field name="res_model">epi.article.peremption</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Bâtiments -->
+    <record id="action_epi_batiments" model="ir.actions.act_window">
+        <field name="name">Bâtiments</field>
+        <field name="res_model">epi.batiment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Commandes -->
+    <record id="action_epi_commandes" model="ir.actions.act_window">
+        <field name="name">Commandes</field>
+        <field name="res_model">epi.commande</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Mouvements -->
+    <record id="action_epi_mouvement" model="ir.actions.act_window">
+        <field name="name">Mouvements</field>
+        <field name="res_model">epi.mouvement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Inventaires -->
+    <record id="action_epi_inventaires" model="ir.actions.act_window">
+        <field name="name">Inventaires</field>
+        <field name="res_model">epi.inventory</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Lignes d’inventaire -->
+    <record id="action_epi_inventory_line" model="ir.actions.act_window">
+        <field name="name">Lignes d’inventaire</field>
+        <field name="res_model">epi.inventory.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tournées -->
+    <record id="action_epi_tournee" model="ir.actions.act_window">
+        <field name="name">Tournées</field>
+        <field name="res_model">epi.tournee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Statistiques EPI -->
+    <record id="action_epi_mouvement_stats" model="ir.actions.act_window">
+        <field name="name">Statistiques EPI</field>
+        <field name="res_model">epi.mouvement.ligne</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="view_epi_mouvement_ligne_search_stats"/>
+        <field name="context">
+            {
+                "group_by": ["date_mouvement:year", "article_id"]
+            }
+        </field>
+    </record>
+
+    <!-- Documents -->
+    <record id="action_document_folders" model="ir.actions.act_window">
+        <field name="name">Dossiers</field>
+        <field name="res_model">epi.document.folder</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_documents" model="ir.actions.act_window">
+        <field name="name">Documents</field>
+        <field name="res_model">epi.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

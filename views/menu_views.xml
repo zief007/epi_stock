@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- MENUS DU MODULE V.E.T.E.S                                 -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Structure centralisée                                   -->
+    <!-- - Actions cohérentes avec actions.xml                     -->
+    <!-- - Aucun menu obsolète                                     -->
+    <!-- ========================================================= -->
+
+    <!-- Racine technique invisible -->
+    <menuitem id="menu_epi_hidden_root"
+              name=""
+              groups="base.group_no_one"
+              sequence="0"/>
+
+    <!-- Racine visible -->
+    <menuitem id="menu_epi_root"
+              name="V.E.T.E.S – Gestion des EPI"
+              sequence="1"
+              action="action_vetes_homepage"/>
+
+    <!-- Accueil -->
+    <menuitem id="vetes_homepage_menu"
+              name="Accueil"
+              parent="menu_epi_root"
+              action="action_vetes_homepage"
+              sequence="1"/>
+
+    <!-- Mouvements -->
+    <menuitem id="menu_epi_mouvements"
+              name="Mouvements"
+              parent="menu_epi_root"
+              action="action_epi_mouvement"
+              sequence="2"/>
+
+    <!-- Commandes -->
+    <menuitem id="menu_epi_commandes"
+              name="Commandes"
+              parent="menu_epi_root"
+              action="action_epi_commandes"
+              sequence="3"/>
+
+    <!-- Agents -->
+    <menuitem id="menu_epi_agents"
+              name="Agents"
+              parent="menu_epi_root"
+              action="action_epi_agent"
+              sequence="4"/>
+
+    <!-- Catégories -->
+    <menuitem id="menu_epi_categories"
+              name="Catégories"
+              parent="menu_epi_root"
+              action="action_epi_article_categories"
+              sequence="5"/>
+
+    <!-- Articles -->
+    <menuitem id="menu_epi_articles"
+              name="Articles"
+              parent="menu_epi_root"
+              action="action_epi_articles"
+              sequence="6"/>
+
+    <!-- Bâtiments -->
+    <menuitem id="menu_epi_batiments"
+              name="Bâtiments"
+              parent="menu_epi_root"
+              action="action_epi_batiments"
+              sequence="7"/>
+
+    <!-- Tournées -->
+    <menuitem id="menu_epi_tournees"
+              name="Tournées"
+              parent="menu_epi_root"
+              action="action_epi_tournee"
+              sequence="8"/>
+
+    <!-- Inventaires -->
+    <menuitem id="menu_epi_inventaires"
+              name="Inventaires"
+              parent="menu_epi_root"
+              action="action_epi_inventaires"
+              sequence="9"/>
+
+    <!-- Statistiques -->
+    <menuitem id="menu_epi_stats"
+              name="Statistiques"
+              parent="menu_epi_root"
+              action="action_epi_mouvement_stats"
+              sequence="10"/>
+
+    <!-- Documents -->
+    <menuitem id="menu_epi_documents"
+              name="Documents"
+              parent="menu_epi_root"
+              sequence="11"/>
+
+    <menuitem id="menu_epi_document_folders"
+              name="Dossiers"
+              parent="menu_epi_documents"
+              action="action_document_folders"
+              sequence="1"/>
+
+    <menuitem id="menu_epi_documents_items"
+              name="Documents"
+              parent="menu_epi_documents"
+              action="action_documents"
+              sequence="2"/>
+
+</odoo>

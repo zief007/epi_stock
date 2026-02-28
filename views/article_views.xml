@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- LISTE : Articles EPI                                     -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Décorations visuelles (périmé / sous seuil)             -->
+    <!-- - Tags commandes en lecture seule                         -->
+    <!-- ========================================================= -->
+    <record id="epi_article_tree" model="ir.ui.view">
+        <field name="name">epi.article.tree</field>
+        <field name="model">epi.article</field>
+        <field name="arch" type="xml">
+
+            <tree string="Articles EPI"
+                  decoration-danger="is_expired == True"
+                  decoration-success="is_below_threshold == True">
+
+                <field name="code" string="Code"/>
+                <field name="name" string="Nom de l'article"/>
+
+                <field name="stock" string="Stock"/>
+                <field name="seuil_alerte" string="Seuil alerte"/>
+                <field name="is_expired" string="Périmé"/>
+                <field name="is_below_threshold" string="Sous le seuil d'alerte"/>
+
+                <field name="category_id" string="Catégorie"/>
+
+                <field name="commande_ids"
+                       widget="many2many_tags"
+                       string="Commande en cours"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- FORMULAIRE : Article EPI                                  -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue stable, sans logique métier                         -->
+    <!-- - Onglets propres                                         -->
+    <!-- - Page mouvements supprimée volontairement                -->
+    <!-- ========================================================= -->
+    <record id="epi_article_form" model="ir.ui.view">
+        <field name="name">epi.article.form</field>
+        <field name="model">epi.article</field>
+        <field name="arch" type="xml">
+
+            <form string="Article EPI">
+
+                <sheet>
+
+                    <!-- Informations principales -->
+                    <group string="Informations generales">
+                        <group>
+                            <field name="code" string="Code"/>
+                            <field name="name" string="Nom de l'article"/>
+                            <field name="category_id" string="Catégorie"/>
+                            <field name="emplacement" string="Emplacement"/>
+                        </group>
+
+                        <group>
+                            <field name="stock" string="Stock"/>
+                            <field name="seuil_alerte" string="Seuil alerte"/>
+                            <field name="perissable" string="Périssable"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+
+                        <!-- Péremption -->
+                        <page string="Péremption"
+                              attrs="{'invisible': [('perissable','=',False)]}">
+                            <field name="peremption_ids">
+                                <tree editable="bottom">
+                                    <field name="date_peremption" string="Date de péremption"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Commandes liées -->
+                        <page string="Commandes">
+
+                            <group>
+                                <field name="en_commande" readonly="1" string="En commande"/>
+                                <field name="commandes_en_attente" readonly="1" string="Commandes en attente"/>
+                            </group>
+
+                            <field name="commande_ids" readonly="1">
+                                <tree string="Commandes liées">
+                                    <field name="name" string="Numéro"/>
+                                    <field name="state" string="État"/>
+                                    <field name="date_commande" string="Date commande"/>
+                                </tree>
+                            </field>
+
+                        </page>
+
+                        <!-- Page mouvements supprimée (ancien système) -->
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- SEARCH : Articles                                         -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Filtres simples                                         -->
+    <!-- - Group_by catégorie                                      -->
+    <!-- ========================================================= -->
+    <record id="epi_article_search" model="ir.ui.view">
+        <field name="name">epi.article.search</field>
+        <field name="model">epi.article</field>
+        <field name="arch" type="xml">
+
+            <search string="Recherche Article">
+
+                <field name="name" string="Nom de l'article"/>
+                <field name="code" string="Code"/>
+
+                <filter name="expired"
+                        string="Périmés"
+                        domain="[('is_expired', '=', True)]"/>
+
+                <filter name="below_threshold"
+                        string="Sous le seuil d'alerte"
+                        domain="[('is_below_threshold', '=', True)]"/>
+
+                <group expand="0" string="Groupes">
+                    <filter name="group_category"
+                            string="Catégorie"
+                            context="{'group_by':'category_id'}"/>
+                </group>
+
+            </search>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- ACTION PRINCIPALE                                         -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Action standard tree/form                               -->
+    <!-- ========================================================= -->
+    <record id="action_epi_article" model="ir.actions.act_window">
+        <field name="name">Articles EPI</field>
+        <field name="res_model">epi.article</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

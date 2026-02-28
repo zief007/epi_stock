@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- ACTION : Bâtiments                                        -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Action standard act_window                              -->
+    <!-- - Cohérente avec menu et modèle                           -->
+    <!-- ========================================================= -->
+    <record id="action_epi_batiments" model="ir.actions.act_window">
+        <field name="name">Bâtiments</field>
+        <field name="res_model">epi.batiment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- LISTE : Bâtiments                                         -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue simple, stable                                      -->
+    <!-- ========================================================= -->
+    <record id="view_epi_batiment_tree" model="ir.ui.view">
+        <field name="name">epi.batiment.tree</field>
+        <field name="model">epi.batiment</field>
+        <field name="arch" type="xml">
+            <tree string="Bâtiments">
+                <field name="name"/>
+                <field name="adresse"/>
+                <field name="responsable"/>
+                <field name="phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- FORMULAIRE : Bâtiment                                     -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Boutons métier (Excel / géoloc)                         -->
+    <!-- - Informations générales + GPS                            -->
+    <!-- - Agents rattachés en lecture seule                       -->
+    <!-- ========================================================= -->
+    <record id="view_epi_batiment_form" model="ir.ui.view">
+        <field name="name">epi.batiment.form</field>
+        <field name="model">epi.batiment</field>
+        <field name="arch" type="xml">
+
+            <form string="Bâtiment">
+
+                <header>
+                    <button name="action_export_excel"
+                            type="object"
+                            string="Exporter Excel"
+                            class="btn-primary"/>
+
+                    <button name="action_geolocate"
+                            type="object"
+                            string="Géolocaliser automatiquement"
+                            class="btn-secondary"/>
+                </header>
+
+                <sheet>
+
+                    <group>
+                        <!-- Informations générales -->
+                        <group string="Informations">
+                            <field name="name"/>
+                            <field name="adresse"/>
+                            <field name="responsable"/>
+                            <field name="phone"/>
+                            <field name="note"/>
+                            <field name="emplacement_linge"/>
+                        </group>
+
+                        <!-- Coordonnées GPS -->
+                        <group string="Localisation GPS">
+                            <field name="latitude"/>
+                            <field name="longitude"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+
+                        <!-- Agents rattachés (lecture seule) -->
+                        <page string="Agents rattachés">
+                            <field name="agent_ids"
+                                   readonly="1"
+                                   create="0"
+                                   edit="0"
+                                   delete="0">
+                                <tree string="Agents actifs">
+                                    <field name="name"/>
+                                    <field name="firstname"/>
+                                    <field name="matricule"/>
+                                    <field name="fonction"/>
+                                    <field name="active" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+</odoo>

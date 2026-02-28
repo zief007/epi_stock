@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- ACTION : Catégories d’articles                           -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Action standard act_window                              -->
+    <!-- - Cohérente avec menu et modèle                           -->
+    <!-- ========================================================= -->
+    <record id="action_epi_article_categories" model="ir.actions.act_window">
+        <field name="name">Catégories d’articles</field>
+        <field name="res_model">epi.article.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- LISTE DES CATÉGORIES                                     -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue simple, stable, sans logique métier                 -->
+    <!-- ========================================================= -->
+    <record id="view_epi_article_category_tree" model="ir.ui.view">
+        <field name="name">epi.article.category.tree</field>
+        <field name="model">epi.article.category</field>
+        <field name="arch" type="xml">
+
+            <tree string="Catégories">
+                <field name="name"/>
+                <field name="parent_id"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- FORMULAIRE CATÉGORIE                                     -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue propre, sans boutons custom                         -->
+    <!-- - Sous-catégories éditables                              -->
+    <!-- - Articles liés en lecture seule                          -->
+    <!-- ========================================================= -->
+    <record id="view_epi_article_category_form" model="ir.ui.view">
+        <field name="name">epi.article.category.form</field>
+        <field name="model">epi.article.category</field>
+        <field name="arch" type="xml">
+
+            <form string="Catégorie d’article">
+
+                <sheet>
+
+                    <!-- Informations générales -->
+                    <group string="Informations">
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="parent_id"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+
+                        <!-- Sous-catégories -->
+                        <page string="Sous-catégories">
+                            <field name="child_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Articles liés (lecture seule) -->
+                        <page string="Articles de cette catégorie">
+                            <field name="article_ids"
+                                   readonly="1"
+                                   options="{'no_create': True, 'no_edit': True}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="stock"/>
+                                    <field name="seuil_alerte"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+</odoo>

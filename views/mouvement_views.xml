@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- TREE : Lignes de mouvement                                -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue simple, éditable                                    -->
+    <!-- - Utilisée dans le formulaire mouvement                   -->
+    <!-- ========================================================= -->
+    <record id="epi_mouvement_ligne_tree" model="ir.ui.view">
+        <field name="name">epi.mouvement.ligne.tree</field>
+        <field name="model">epi.mouvement.ligne</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" create="true" delete="true">
+                <field name="article_id"/>
+                <field name="quantite"/>
+                <field name="remarque"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- LISTE : Mouvements EPI                                    -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue simple et stable                                     -->
+    <!-- ========================================================= -->
+    <record id="epi_mouvement_tree" model="ir.ui.view">
+        <field name="name">epi.mouvement.tree</field>
+        <field name="model">epi.mouvement</field>
+        <field name="arch" type="xml">
+            <tree string="Mouvements EPI">
+                <field name="type_mouvement"/>
+                <field name="numero_bon"/>
+                <field name="date_mouvement"/>
+                <field name="agent_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- FORMULAIRE : Mouvement EPI                                -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Bouton export Excel (object)                            -->
+    <!-- - Lignes via vue tree principale                          -->
+    <!-- ========================================================= -->
+    <record id="epi_mouvement_form" model="ir.ui.view">
+        <field name="name">epi.mouvement.form</field>
+        <field name="model">epi.mouvement</field>
+        <field name="arch" type="xml">
+
+            <form string="Mouvement EPI">
+
+                <header>
+                    <button name="print_mouvement"
+                            type="object"
+                            string="Exporter Excel"
+                            class="btn-primary"
+                            attrs="{'invisible': ['|', ('id', '=', False), ('id', '=', 0)]}"/>
+                </header>
+
+                <sheet>
+
+                    <field name="export_file" invisible="1"/>
+
+                    <group string="Informations">
+                        <group>
+                            <field name="type_mouvement" widget="radio"/>
+                            <field name="numero_bon" readonly="1"/>
+                            <field name="allow_empty"
+                                   attrs="{'invisible': [('type_mouvement', '!=', 'sortie')]}"/>
+                        </group>
+
+                        <group>
+                            <field name="agent_id"/>
+                            <field name="date_mouvement"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+
+                        <!-- Lignes de mouvement -->
+                        <page string="Articles">
+                            <field name="ligne_ids" mode="tree,form"/>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- ACTION : Mouvements                                       -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Action standard tree/form                               -->
+    <!-- ========================================================= -->
+    <record id="action_epi_mouvement" model="ir.actions.act_window">
+        <field name="name">Mouvements EPI</field>
+        <field name="res_model">epi.mouvement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

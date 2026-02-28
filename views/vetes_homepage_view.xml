@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- VUE : Page d'accueil V.E.T.E.S                            -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue form statique, non éditable                         -->
+    <!-- - Champs techniques masqués                               -->
+    <!-- - Contenu purement informatif                             -->
+    <!-- - Point d'entrée visuel du module                         -->
+    <!-- ========================================================= -->
+    <record id="vetes_homepage_view" model="ir.ui.view">
+        <field name="name">vetes.homepage.form</field>
+        <field name="model">vetes.homepage</field>
+        <field name="arch" type="xml">
+
+            <form string="Accueil V.E.T.E.S" create="false" edit="false">
+                <sheet>
+
+                    <!-- Champs techniques invisibles -->
+                    <group invisible="1">
+                        <field name="name"/>
+                        <field name="dummy"/>
+                    </group>
+
+                    <!-- Logo + titres -->
+                    <div style="text-align:center; margin-top:20px;">
+                        <img src="/epi_stock/static/src/img/logo_vetes.png"
+                             alt="Logo VETES"
+                             style="max-height:120px; margin-bottom:20px;"/>
+                        <h1>V.E.T.E.S</h1>
+                        <h2>Gestion des Équipements de Protection Individuelle</h2>
+                    </div>
+
+                    <separator string="Légende des alertes" colspan="4"/>
+
+                    <!-- Légende -->
+                    <div style="margin-top:20px; font-size:16px;">
+                        <p>
+                            <span style="display:inline-block;width:16px;height:16px;
+                                         background-color:#dc3545;margin-right:8px;"></span>
+                            Agent(s) avec contrat expiré
+                        </p>
+                        <p>
+                            <span style="display:inline-block;width:16px;height:16px;
+                                         background-color:#fd7e14;margin-right:8px;"></span>
+                            Article(s) périmé(s)
+                        </p>
+                        <p>
+                            <span style="display:inline-block;width:16px;height:16px;
+                                         background-color:#198754;margin-right:8px;"></span>
+                            Article(s) sous le seuil d’alerte
+                        </p>
+                    </div>
+
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- ACTION : Accueil                                          -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Action act_window ouvrant la vue statique               -->
+    <!-- - Utilisée comme point d'entrée du module                 -->
+    <!-- - Compatible Odoo 16 (pas d'action client)                -->
+    <!-- ========================================================= -->
+    <record id="action_vetes_homepage" model="ir.actions.act_window">
+        <field name="name">Accueil</field>
+        <field name="res_model">vetes.homepage</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="vetes_homepage_view"/>
+        <field name="target">current</field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- DONNÉES : Enregistrement par défaut                       -->
+    <!-- Objectif IT :                                             -->
+    <!-- - OBLIGATOIRE pour Odoo 16                                -->
+    <!-- - Permet à l'action d'accueil d'afficher un record        -->
+    <!-- - Sans ceci : écran vide → retour Discussion              -->
+    <!-- - Garantit l'ouverture automatique au login               -->
+    <!-- ========================================================= -->
+    <record id="vetes_homepage_default" model="vetes.homepage">
+        <field name="name">Accueil VETES</field>
+        <field name="dummy">1</field>
+    </record>
+
+</odoo>

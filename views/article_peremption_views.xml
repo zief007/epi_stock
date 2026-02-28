@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- LISTE : Dates de péremption                              -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue tree minimaliste                                    -->
+    <!-- - Utilisée dans la fiche article (One2many)               -->
+    <!-- ========================================================= -->
+    <record id="view_epi_article_peremption_tree" model="ir.ui.view">
+        <field name="name">epi.article.peremption.tree</field>
+        <field name="model">epi.article.peremption</field>
+        <field name="arch" type="xml">
+            <tree string="Dates de péremption">
+                <field name="date_peremption"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- FORMULAIRE : Date de péremption                           -->
+    <!-- Objectif IT :                                             -->
+    <!-- - Vue simple, sans boutons custom                         -->
+    <!-- - Conforme aux règles Odoo 16                             -->
+    <!-- ========================================================= -->
+    <record id="view_epi_article_peremption_form" model="ir.ui.view">
+        <field name="name">epi.article.peremption.form</field>
+        <field name="model">epi.article.peremption</field>
+        <field name="arch" type="xml">
+
+            <form string="Date de péremption">
+
+                <sheet>
+                    <group>
+                        <field name="date_peremption"/>
+                    </group>
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+</odoo>
