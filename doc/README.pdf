@@ -1,0 +1,76 @@
+# V.E.T.E.S — Gestion des Équipements de Protection Individuelle
+
+## 📘 Description
+Le module **V.E.T.E.S** (Vêtements – EPI – Tournées – Entrepôts – Stock) permet la gestion complète des équipements de protection individuelle au sein de la Ville de Liège.  
+Il centralise les agents, les articles, les commandes, les inventaires, les mouvements, les bâtiments et les tournées.
+
+Le module est conçu pour être **simple, robuste, maintenable** et conforme aux standards Odoo 16.
+
+---
+
+## 🚀 Fonctionnalités principales
+
+### 👷 Agents
+- Gestion des agents et de leurs informations administratives  
+- Historique des mouvements EPI  
+- Rattachement automatique au bâtiment  
+
+### 📦 Articles
+- Gestion du stock  
+- Seuils d’alerte  
+- Péremption (dates multiples)  
+- Coloration automatique (périmé / sous seuil)
+
+### 🏢 Bâtiments
+- Gestion des lieux de stockage  
+- Géolocalisation automatique  
+- Export Excel des agents rattachés  
+
+### 📑 Commandes
+- Gestion des commandes fournisseurs  
+- Réception complète ou partielle  
+- Backorders automatiques  
+- Chatter intégré  
+
+### 🔄 Mouvements
+- Sorties / retours d’EPI  
+- Export Word du bon de mouvement  
+- Historique complet  
+
+### 📊 Statistiques
+- Vue dédiée avec filtres avancés  
+- Groupements par année, article, type  
+
+### 📋 Inventaires
+- Chargement automatique des articles  
+- Calcul des écarts  
+- Validation et verrouillage  
+
+### 🚚 Tournées
+- Optimisation d’itinéraire  
+- Ouverture Google Maps  
+- Gestion des lignes de tournée  
+
+---
+
+## 🛠️ Installation
+1. Copier le module dans le dossier `addons` d’Odoo  
+2. Vérifier les dépendances dans `__manifest__.py`  
+3. Mettre à jour la liste des modules  
+4. Installer **V.E.T.E.S**
+
+---
+
+## 🧪 Tests
+Le module a été audité et validé pour :
+- cohérence des vues  
+- absence d’actions orphelines  
+- conformité Odoo 16  
+- absence de résidus techniques  
+
+---
+
+## 👤 Auteur
+Ville de Liège — Magasinier  
+Développement : Adam JF (IT – Odoo)
+

@@ -1,0 +1,30 @@
+Configuration nécessaire après installation du module EPI
+Objectif : permettre à l’administrateur d’accéder à la page d’accueil V.E.T.E.S et d’ouvrir le module sans erreur d’accès.
+
+Étapes :
+Activer le mode développeur  
+Paramètres → Activer le mode développeur
+
+Aller dans :
+Paramètres → Utilisateurs & entreprises → Utilisateurs
+
+Ouvrir l’utilisateur Administrator
+
+Dans l’onglet Droits d’accès, cocher les groupes suivants :
+
+Inventaire / Administrateur EPI
+
+Inventaire / Magasinier EPI
+
+(optionnel) Inventaire / Utilisateur EPI si besoin
+
+Sauvegarder
+
+Déconnecter / reconnecter l’utilisateur
+
+Résultat attendu :
+L’administrateur peut ouvrir la page d’accueil VETES sans erreur.
+
+Le module EPI apparaît dans la barre latérale.
+
+La navigation fonctionne normalement.

@@ -1,0 +1,141 @@
+# FICHE DE LIVRAISON IT — Module EPI Stock (V.E.T.E.S)
+
+## 1. Informations générales
+
+**Nom du module :** epi_stock  
+**Version livrée :** 1.4.0  
+**Compatibilité :** Odoo 16 Community Edition  
+**Environnement cible :** Docker (Odoo + PostgreSQL)  
+**Date de livraison :** __________________  
+**Livré par :** __________________  
+**Validé par :** __________________  
+
+---
+
+## 2. Description du module
+
+Le module EPI Stock (V.E.T.E.S) gère l’ensemble du cycle de vie des Équipements de Protection Individuelle :
+
+- agents  
+- articles et dates de péremption  
+- mouvements (entrées/sorties)  
+- commandes et réceptions  
+- inventaires  
+- tournées terrain  
+- bâtiments  
+- documents liés  
+- page d’accueil personnalisée  
+- badges dynamiques sur les menus (🟥🟧🟩)
+
+Le module est conçu pour être ergonomique, fiable et adapté aux besoins opérationnels.
+
+---
+
+## 3. Nouveautés et modifications de la version
+
+Voir `CHANGELOG.md` pour le détail complet.
+
+Résumé version 1.4.0 :
+
+- ACL finalisées et sécurisées  
+- Modèles techniques protégés (admin only)  
+- Nettoyage complet du fichier `ir.model.access.csv`  
+- Suppression de l’ACL incorrecte sur un modèle inexistant  
+- Documentation complète ajoutée (README, CONTRIBUTING, SECURITY)  
+- Stabilisation en environnement Docker  
+- Optimisation des badges de menu  
+
+---
+
+## 4. Structure du module
+
+- `models/` : modèles métier et techniques  
+- `views/` : vues XML  
+- `security/` : ACL et règles d’accès  
+- `data/` : données initiales  
+- `static/` : ressources statiques  
+- `README.md` : documentation fonctionnelle  
+- `CHANGELOG.md` : historique des versions  
+- `CONTRIBUTING.md` : guide de contribution  
+- `SECURITY.md` : règles de sécurité  
+
+---
+
+## 5. Groupes et règles d’accès
+
+### Groupes définis
+- **epi_stock.group_epi_admin**  
+- **epi_stock.group_epi_responsable**  
+- **epi_stock.group_epi_magasinier**
+
+### Résumé des droits
+- **Admin :** accès complet à tous les modèles  
+- **Responsable :** accès complet aux modèles métier, pas aux modèles techniques  
+- **Magasinier :** accès limité selon règles métier (lecture seule sur articles, documents, etc.)
+
+### Modèles techniques (admin only)
+- `vetes_homepage`  
+- `epi_annee_selection`  
+- `epi_badge_service`  
+- `epi.article.move`  
+- surcharge `ir.ui.menu` (aucune ACL nécessaire)
+
+---
+
+## 6. Instructions d’installation / mise à jour
+
+### 6.1. Déploiement initial
+1. Copier le module dans le dossier `addons/` du projet Docker.  
+2. Redémarrer Odoo :
+3. Installer le module via l’interface Odoo.
+
+### 6.2. Mise à jour du module
+1. Exécuter :
+2. Redémarrer Odoo :
+3. Vérifier les logs :
+
+---
+
+## 7. Points de contrôle IT
+
+### Obligatoires
+- ✔ Le module se charge sans erreur  
+- ✔ Aucun modèle inexistant dans `ir.model.access.csv`  
+- ✔ Aucun modèle technique exposé dans les menus  
+- ✔ Les badges de menu se mettent à jour correctement  
+- ✔ Les ACL fonctionnent pour les trois groupes  
+- ✔ Les vues s’affichent correctement pour chaque rôle  
+- ✔ Les inventaires, mouvements et commandes fonctionnent  
+
+### Optionnels
+- Vérification des performances  
+- Vérification des logs PostgreSQL  
+- Vérification des dépendances  
+
+---
+
+## 8. Risques connus / limitations
+
+- Les ACL doivent rester strictes : toute modification non contrôlée peut provoquer des erreurs de chargement.  
+- Les modèles techniques ne doivent jamais être exposés.  
+- Les badges de menu utilisent une surcharge `ir.ui.menu` : toute modification doit être testée.  
+
+---
+
+## 9. Documentation fournie
+
+- README.md  
+- CHANGELOG.md  
+- CONTRIBUTING.md  
+- SECURITY.md  
+
+---
+
+## 10. Contact IT
+
+Pour toute question, incident ou demande d’évolution :  
+**Équipe IT — Ville de Liège**  
+Responsable technique : __________________  
+Email : __________________  
+Téléphone : __________________  
+
